@@ -14,12 +14,8 @@
   "license": "MIT",
   "author": "WARP <development@warp.lv> (http://www.warp.lv)",
   "contributors": [
-    {
-      "name": "Renārs Vilnis"
-    },
-    {
-      "name": "kroko / Reinis Adovičs"
-    }
+    "Renārs Vilnis",
+    "kroko / Reinis Adovičs"
   ],
   "main": "index.js",
   "scripts": {
@@ -29,6 +25,5 @@
     "type": "git",
     "url": "git+https://github.com/WARP-LAB/warp-scss.git"
   },
-  "peerDependencies": {
-  }
+  "peerDependencies": {}
 }
