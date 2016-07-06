@@ -1,0 +1,196 @@
+@charset 'UTF-8';
+
+// ########################################
+// Mixins
+// ########################################
+
+/**
+ * Helper to clear inner floats
+ * @author Nicolas Gallagher
+ * @link http://nicolasgallagher.com/micro-clearfix-hack/ Micro Clearfix
+ */
+
+@mixin clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin text-decoration-none {
+  text-decoration: none;
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
+}
+
+
+/**
+ * Vertical alignment with only 3 lines of code
+ * http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/
+ */
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin image-grayscale {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: gray;
+  filter: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' height='0'><filter id='greyscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0' /></filter></svg>#greyscale");
+}
+
+/**
+ * Create a mixin that overrides that global variable.
+  * USAGE EXAMPLE:
+
+  // Initialize a global variable at root level.
+  $variable: 'initial value';
+
+  .local-scope::before {
+    // Create a local variable that shadows the global one.
+    $variable: 'local value';
+
+    // Include the mixin: it overrides the global variable.
+    @include global-variable-overriding;
+
+    // Print the variable’s value.
+    // It is the **local** one, since it shadows the global one.
+    content: $variable;
+  }
+
+  // Print the variable in another selector that does no shadowing.
+  // It is the **global** one, as expected.
+  .other-local-scope::before {
+    content: $variable;
+  }
+*/
+
+@mixin global-variable-overriding {
+  $variable: 'mixin value' !global;
+}
+
+@mixin flexbox-parent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+@mixin user-select-none {
+  // TODO: update mqpacker to probably remove this
+  -webkit-user-select: none; // Chrome all / Safari all
+  -moz-user-select: none; // Firefox all
+  -ms-user-select: none; // IE 10+
+  user-select: none; // Likely future
+
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+  cursor: default;
+}
+
+@mixin stop-drag {
+  @include user-select-none;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+// sass svg fallback to png (or your desired extension)
+// similar to other fallbacks but this supports < 4 firefox
+@mixin png-svg-fallback($url, $extension: '.png') {
+  background-image: url($url + $extension);
+  background-image: -webkit-linear-gradient(transparent, transparent), url($url + ".svg");
+  background-image: linear-gradient(transparent, transparent), url($url + ".svg");
+}
+
+// http://stackoverflow.com/questions/5472802/css-z-index-lost-after-webkit-transform-translate3d
+@mixin preserve-zindex-transform {
+  transform-style: flat;
+}
+
+/**
+Apply some style to all headers
+Example - all headings in container will have color red
+.container {
+    @include headings(){
+        color: red;
+    }
+}
+**/
+
+@mixin headings($from: 1, $to: 6) {
+  @for $i from $from through $to {
+    h#{$i} {
+      @content
+    }
+  }
+}
+
+@mixin headings-with-classname($classname: '', $from: 1, $to: 6) {
+  @if $classname !='' {
+    @for $i from $from through $to {
+      h#{$i}.#{$classname} {
+        @content
+      }
+    }
+  }
+  @else {
+    @for $i from $from through $to {
+      h#{$i} {
+        @content
+      }
+    }
+  }
+}
+
+@mixin this-outline-none {
+  outline: 0;
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    outline: 0;
+  }
+}
+
+// aspect ratio
+// https://css-tricks.com/snippets/sass/maintain-aspect-ratio-mixin/
+@mixin aspect-ratio($width, $height, $fill: true) {
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+  > .content,
+  > iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    @if $fill==true {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+// works only in firefox, do not use
+//http://www.w3schools.com/cssref/css3_pr_text-decoration-color.asp
+// @mixin text-decoration-color($decColor: red) {
+//     -moz-text-decoration-color: $decColor;
+//     text-decoration-color: $decColor;
+// }

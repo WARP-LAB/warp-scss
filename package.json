@@ -1,0 +1,34 @@
+{
+  "name": "warp-scss",
+  "version": "0.0.1",
+  "description": "WARP SCSS mixins and functions",
+  "keywords": [
+    "scss",
+    "mixins",
+    "functions"
+  ],
+  "homepage": "https://github.com/WARP-LAB/warp-scss#readme",
+  "bugs": {
+    "url": "https://github.com/WARP-LAB/warp-scss/issues"
+  },
+  "license": "MIT",
+  "author": "WARP <development@warp.lv> (http://www.warp.lv)",
+  "contributors": [
+    {
+      "name": "Renārs Vilnis"
+    },
+    {
+      "name": "kroko / Reinis Adovičs"
+    }
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WARP-LAB/warp-scss.git"
+  },
+  "peerDependencies": {
+  }
+}
